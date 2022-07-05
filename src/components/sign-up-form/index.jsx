@@ -82,7 +82,7 @@ const SignupForm = () => {
                     name="confirmPassword"
                 />
 
-                <Button buttonType='google' type='submit'>
+                <Button type='submit'>
                     Sign Up
                 </Button>
             </form>

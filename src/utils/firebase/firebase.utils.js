@@ -5,7 +5,8 @@ import {
     signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
 } from "firebase/auth"
 
 import {
@@ -38,6 +39,30 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
+
+export const signInAuthUserWithEmailAndPassword = (email, password) => {
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user)
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    switch(errorCode) {
+        case 'auth/wrong-password':
+            alert('incorrect password for email');
+            break;
+        case 'auth/user-not-found':
+            alert('no user associated with this email')
+            break;
+        default:
+            console.log(error);        
+    }
+    console.log(error)
+    const errorMessage = error.message;
+  });
+}
 
 export const db = getFirestore();
 
